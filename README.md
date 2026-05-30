@@ -1,6 +1,6 @@
-# Sanskrit Vyanjani Types
+# Sanskrit Vyanjanani Types
 
-An interactive webpage showcasing Sanskrit consonants (Vyanjani) organized by their phonetic classifications.
+An interactive webpage showcasing Sanskrit consonants (Vyanjanani) organized by their phonetic classifications.
 
 ## Features
 
@@ -17,7 +17,7 @@ An interactive webpage showcasing Sanskrit consonants (Vyanjani) organized by th
 
 ## Consonant Organization
 
-### Vargiya Vyanjani (Grouped Consonants)
+### Vargiya Vyanjanani (Grouped Consonants)
 
 | V1 | V2 | V3 | V4 | V5 |
 |----|----|----|----|-----|
@@ -27,7 +27,7 @@ An interactive webpage showcasing Sanskrit consonants (Vyanjani) organized by th
 | त | थ | द | ध | न |
 | प | फ | ब | भ | म |
 
-### Avargiya Vyanjani (Ungrouped Consonants)
+### Avargiya Vyanjanani (Ungrouped Consonants)
 
 **R1**: य, र, ल, व  
 **R2**: श, ष, स, ह
