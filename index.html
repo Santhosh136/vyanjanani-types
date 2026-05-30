@@ -234,16 +234,19 @@
             }
 
             .columns-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(5, minmax(80px, 1fr));
                 gap: 10px;
+                overflow-x: auto;
             }
 
             .avargiya {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, minmax(120px, 1fr));
+                overflow-x: auto;
             }
 
             .column {
                 padding: 12px;
+                min-width: 80px;
             }
 
             .column-title {
