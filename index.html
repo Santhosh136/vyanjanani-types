@@ -213,56 +213,75 @@
 
         @media (max-width: 480px) {
             body {
-                padding: 16px 12px;
+                padding: 12px 8px;
             }
 
             h1 {
-                font-size: 1.4em;
-                margin-bottom: 16px;
+                font-size: 1.2em;
+                margin-bottom: 12px;
             }
 
             .filters {
-                gap: 8px;
-                margin-bottom: 24px;
+                gap: 6px;
+                margin-bottom: 16px;
             }
 
             .filter-btn {
-                padding: 10px 14px;
-                font-size: 0.9em;
+                padding: 8px 10px;
+                font-size: 0.75em;
                 flex: 1;
-                min-width: calc(50% - 4px);
+                min-width: calc(25% - 4.5px);
             }
 
             .columns-grid {
-                grid-template-columns: repeat(5, minmax(80px, 1fr));
-                gap: 10px;
-                overflow-x: auto;
-            }
-
-            .avargiya {
-                grid-template-columns: repeat(2, minmax(120px, 1fr));
-                overflow-x: auto;
+                grid-template-columns: repeat(5, 1fr);
+                gap: 6px;
             }
 
             .column {
-                padding: 12px;
-                min-width: 80px;
+                padding: 8px;
             }
 
             .column-title {
-                font-size: 0.85em;
-                margin-bottom: 10px;
+                font-size: 0.75em;
+                margin-bottom: 8px;
             }
 
             .consonant {
-                padding: 9px;
-                margin-bottom: 5px;
-                font-size: 1.1em;
+                padding: 6px;
+                margin-bottom: 4px;
+                font-size: 0.95em;
+            }
+
+            .avargiya {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+            }
+
+            .avargiya .column {
+                display: grid;
+                grid-template-columns: auto repeat(4, 1fr);
+                gap: 6px;
+                align-items: start;
+            }
+
+            .avargiya .column-title {
+                grid-column: 1 / -1;
+            }
+
+            .avargiya .consonant {
+                padding: 6px;
+                margin-bottom: 0;
+                font-size: 0.95em;
+            }
+
+            .section {
+                margin-bottom: 16px;
             }
 
             .section-title {
-                font-size: 1em;
-                margin-bottom: 12px;
+                font-size: 0.9em;
+                margin-bottom: 10px;
             }
 
             .container {
