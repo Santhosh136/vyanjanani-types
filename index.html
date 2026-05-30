@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanskrit Vyanjani</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            padding: 40px 20px;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Crimson Text', serif;
+            text-align: center;
+            color: #222;
+            margin-bottom: 30px;
+            font-size: 3em;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            font-family: 'Lora', serif;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            background: white;
+            color: #333;
+            font-size: 1em;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            touch-action: manipulation;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-btn:hover {
+            border-color: #999;
+        }
+
+        .filter-btn.active {
+            color: white;
+            border: none;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.4em;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .columns-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+
+        .column {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 20px;
+            background: white;
+        }
+
+        .column-title {
+            font-weight: 600;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+            color: #333;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .consonant {
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: 500;
+            cursor: default;
+            transition: all 0.3s ease;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .consonant.dimmed {
+            opacity: 0.35;
+            color: #999;
+        }
+
+        .consonant.highlighted {
+            color: white;
+        }
+
+        .avargiya {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .avargiya .column {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+            gap: 12px;
+        }
+
+        .avargiya .column-title {
+            grid-column: 1 / -1;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .avargiya .consonant {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 1024px) {
+            .columns-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
+            }
+
+            .avargiya {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 16px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+                margin-bottom: 20px;
+            }
+
+            .filters {
+                gap: 10px;
+                margin-bottom: 30px;
+            }
+
+            .filter-btn {
+                padding: 10px 16px;
+                font-size: 0.95em;
+            }
+
+            .columns-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .avargiya {
+                grid-template-columns: 1fr;
+            }
+
+            .column {
+                padding: 15px;
+            }
+
+            .column-title {
+                font-size: 0.9em;
+                margin-bottom: 12px;
+            }
+
+            .consonant {
+                padding: 10px;
+                margin-bottom: 6px;
+                font-size: 1.2em;
+            }
+
+            .section-title {
+                font-size: 1.1em;
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px 12px;
+            }
+
+            h1 {
+                font-size: 1.4em;
+                margin-bottom: 16px;
+            }
+
+            .filters {
+                gap: 8px;
+                margin-bottom: 24px;
+            }
+
+            .filter-btn {
+                padding: 10px 14px;
+                font-size: 0.9em;
+                flex: 1;
+                min-width: calc(50% - 4px);
+            }
+
+            .columns-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .avargiya {
+                grid-template-columns: 1fr;
+            }
+
+            .column {
+                padding: 12px;
+            }
+
+            .column-title {
+                font-size: 0.85em;
+                margin-bottom: 10px;
+            }
+
+            .consonant {
+                padding: 9px;
+                margin-bottom: 5px;
+                font-size: 1.1em;
+            }
+
+            .section-title {
+                font-size: 1em;
+                margin-bottom: 12px;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sanskrit Vyanjani</h1>
+
+        <div class="filters">
+            <button class="filter-btn" data-filter="alpaprana">Alpa Prana</button>
+            <button class="filter-btn" data-filter="mahaprana">Maha Prana</button>
+            <button class="filter-btn" data-filter="karkasha">Karkasha</button>
+            <button class="filter-btn" data-filter="mrdu">Mrdu</button>
+        </div>
+
+        <!-- Vargiya Section -->
+        <div class="section">
+            <div class="section-title">Vargiya Vyanjani</div>
+            <div class="columns-grid">
+                <div class="column">
+                    <div class="column-title">V1</div>
+                    <div class="consonant" data-consonant="क" data-filters="alpaprana,karkasha">क</div>
+                    <div class="consonant" data-consonant="च" data-filters="alpaprana,karkasha">च</div>
+                    <div class="consonant" data-consonant="ट" data-filters="alpaprana,karkasha">ट</div>
+                    <div class="consonant" data-consonant="त" data-filters="alpaprana,karkasha">त</div>
+                    <div class="consonant" data-consonant="प" data-filters="alpaprana,karkasha">प</div>
+                </div>
+
+                <div class="column">
+                    <div class="column-title">V2</div>
+                    <div class="consonant" data-consonant="ख" data-filters="mahaprana,karkasha">ख</div>
+                    <div class="consonant" data-consonant="छ" data-filters="mahaprana,karkasha">छ</div>
+                    <div class="consonant" data-consonant="ठ" data-filters="mahaprana,karkasha">ठ</div>
+                    <div class="consonant" data-consonant="थ" data-filters="mahaprana,karkasha">थ</div>
+                    <div class="consonant" data-consonant="फ" data-filters="mahaprana,karkasha">फ</div>
+                </div>
+
+                <div class="column">
+                    <div class="column-title">V3</div>
+                    <div class="consonant" data-consonant="ग" data-filters="alpaprana,mrdu">ग</div>
+                    <div class="consonant" data-consonant="ज" data-filters="alpaprana,mrdu">ज</div>
+                    <div class="consonant" data-consonant="ड" data-filters="alpaprana,mrdu">ड</div>
+                    <div class="consonant" data-consonant="द" data-filters="alpaprana,mrdu">द</div>
+                    <div class="consonant" data-consonant="ब" data-filters="alpaprana,mrdu">ब</div>
+                </div>
+
+                <div class="column">
+                    <div class="column-title">V4</div>
+                    <div class="consonant" data-consonant="घ" data-filters="mahaprana,mrdu">घ</div>
+                    <div class="consonant" data-consonant="झ" data-filters="mahaprana,mrdu">झ</div>
+                    <div class="consonant" data-consonant="ढ" data-filters="mahaprana,mrdu">ढ</div>
+                    <div class="consonant" data-consonant="ध" data-filters="mahaprana,mrdu">ध</div>
+                    <div class="consonant" data-consonant="भ" data-filters="mahaprana,mrdu">भ</div>
+                </div>
+
+                <div class="column">
+                    <div class="column-title">V5</div>
+                    <div class="consonant" data-consonant="ङ" data-filters="alpaprana,mrdu">ङ</div>
+                    <div class="consonant" data-consonant="ञ" data-filters="alpaprana,mrdu">ञ</div>
+                    <div class="consonant" data-consonant="ण" data-filters="alpaprana,mrdu">ण</div>
+                    <div class="consonant" data-consonant="न" data-filters="alpaprana,mrdu">न</div>
+                    <div class="consonant" data-consonant="म" data-filters="alpaprana,mrdu">म</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Avargiya Section -->
+        <div class="section">
+            <div class="section-title">Avargiya Vyanjani</div>
+            <div class="columns-grid avargiya">
+                <div class="column">
+                    <div class="column-title">R1</div>
+                    <div class="consonant" data-consonant="य" data-filters="alpaprana,mrdu">य</div>
+                    <div class="consonant" data-consonant="र" data-filters="alpaprana,mrdu">र</div>
+                    <div class="consonant" data-consonant="ल" data-filters="alpaprana,mrdu">ल</div>
+                    <div class="consonant" data-consonant="व" data-filters="alpaprana,mrdu">व</div>
+                </div>
+
+                <div class="column">
+                    <div class="column-title">R2</div>
+                    <div class="consonant" data-consonant="श" data-filters="mahaprana,karkasha">श</div>
+                    <div class="consonant" data-consonant="ष" data-filters="mahaprana,karkasha">ष</div>
+                    <div class="consonant" data-consonant="स" data-filters="mahaprana,karkasha">स</div>
+                    <div class="consonant" data-consonant="ह" data-filters="mahaprana,mrdu">ह</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const consonants = document.querySelectorAll('.consonant');
+        const filterColors = {
+            'alpaprana': '#1A05A2',
+            'mahaprana': '#8F0177',
+            'karkasha': '#DE1A58',
+            'mrdu': '#F67D31'
+        };
+
+        let activeFilters = new Set();
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                btn.classList.toggle('active');
+
+                if (activeFilters.has(filter)) {
+                    activeFilters.delete(filter);
+                } else {
+                    activeFilters.add(filter);
+                }
+
+                updateHighlighting();
+            });
+        });
+
+        function updateHighlighting() {
+            consonants.forEach(consonant => {
+                const filters = consonant.dataset.filters.split(',');
+                const matchingFilters = Array.from(activeFilters).filter(f => filters.includes(f));
+
+                if (activeFilters.size === 0) {
+                    // No filters active - show all normally
+                    consonant.classList.remove('dimmed', 'highlighted');
+                    consonant.style.background = '#f8f9fa';
+                    consonant.style.color = '#333';
+                } else if (matchingFilters.length > 0) {
+                    // Consonant matches one or more active filters
+                    consonant.classList.remove('dimmed');
+                    consonant.classList.add('highlighted');
+
+                    if (matchingFilters.length === 1) {
+                        // Single filter - solid color
+                        const color = filterColors[matchingFilters[0]];
+                        consonant.style.background = color;
+                        consonant.style.color = 'white';
+                    } else {
+                        // Multiple filters - gradient
+                        const colors = matchingFilters.map(f => filterColors[f]);
+                        const gradient = `linear-gradient(135deg, ${colors.join(', ')})`;
+                        consonant.style.background = gradient;
+                        consonant.style.color = 'white';
+                    }
+                } else {
+                    // Consonant doesn't match any active filters - dim it
+                    consonant.classList.add('dimmed');
+                    consonant.classList.remove('highlighted');
+                    consonant.style.background = '#f8f9fa';
+                    consonant.style.color = '#999';
+                }
+            });
+
+            // Update button colors
+            filterBtns.forEach(btn => {
+                const filter = btn.dataset.filter;
+                if (btn.classList.contains('active')) {
+                    btn.style.background = filterColors[filter];
+                    btn.style.borderColor = filterColors[filter];
+                    btn.style.color = 'white';
+                } else {
+                    btn.style.background = 'white';
+                    btn.style.borderColor = '#ddd';
+                    btn.style.color = '#333';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
