@@ -367,9 +367,11 @@
         };
 
         let activeFilters = new Set();
+        let selectedConsonant = null;
 
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
+                selectedConsonant = null;
                 const filter = btn.dataset.filter;
                 btn.classList.toggle('active');
 
@@ -383,55 +385,114 @@
             });
         });
 
-        function updateHighlighting() {
-            consonants.forEach(consonant => {
-                const filters = consonant.dataset.filters.split(',');
-                const matchingFilters = Array.from(activeFilters).filter(f => filters.includes(f));
+        consonants.forEach(consonant => {
+            consonant.style.cursor = 'pointer';
+            consonant.addEventListener('click', () => {
+                if (selectedConsonant === consonant) {
+                    selectedConsonant = null;
+                } else {
+                    selectedConsonant = consonant;
+                }
+                updateHighlighting();
+            });
+        });
 
-                if (activeFilters.size === 0) {
-                    // No filters active - show all normally
+        function updateHighlighting() {
+            if (selectedConsonant) {
+                // A consonant is selected - highlight its filters
+                const selectedFilters = selectedConsonant.dataset.filters.split(',');
+
+                consonants.forEach(consonant => {
                     consonant.classList.remove('dimmed', 'highlighted');
                     consonant.style.background = '#f8f9fa';
                     consonant.style.color = '#333';
-                } else if (matchingFilters.length > 0) {
-                    // Consonant matches one or more active filters
-                    consonant.classList.remove('dimmed');
-                    consonant.classList.add('highlighted');
+                });
 
-                    if (matchingFilters.length === 1) {
-                        // Single filter - solid color
-                        const color = filterColors[matchingFilters[0]];
-                        consonant.style.background = color;
-                        consonant.style.color = 'white';
-                    } else {
-                        // Multiple filters - gradient
-                        const colors = matchingFilters.map(f => filterColors[f]);
-                        const gradient = `linear-gradient(135deg, ${colors.join(', ')})`;
-                        consonant.style.background = gradient;
-                        consonant.style.color = 'white';
-                    }
+                selectedConsonant.classList.add('highlighted');
+                if (selectedFilters.length === 1) {
+                    // Single filter - solid color
+                    const color = filterColors[selectedFilters[0]];
+                    selectedConsonant.style.background = color;
                 } else {
-                    // Consonant doesn't match any active filters - dim it
-                    consonant.classList.add('dimmed');
-                    consonant.classList.remove('highlighted');
-                    consonant.style.background = '#f8f9fa';
-                    consonant.style.color = '#999';
+                    // Multiple filters - gradient
+                    const colors = selectedFilters.map(f => filterColors[f]);
+                    const gradient = `linear-gradient(135deg, ${colors.join(', ')})`;
+                    selectedConsonant.style.background = gradient;
                 }
-            });
+                selectedConsonant.style.color = 'white';
 
-            // Update button colors
-            filterBtns.forEach(btn => {
-                const filter = btn.dataset.filter;
-                if (btn.classList.contains('active')) {
-                    btn.style.background = filterColors[filter];
-                    btn.style.borderColor = filterColors[filter];
-                    btn.style.color = 'white';
-                } else {
+                // Highlight corresponding filter buttons
+                filterBtns.forEach(btn => {
+                    const filter = btn.dataset.filter;
+                    if (selectedFilters.includes(filter)) {
+                        btn.style.background = filterColors[filter];
+                        btn.style.borderColor = filterColors[filter];
+                        btn.style.color = 'white';
+                    } else {
+                        btn.style.background = 'white';
+                        btn.style.borderColor = '#ddd';
+                        btn.style.color = '#333';
+                    }
+                });
+            } else if (activeFilters.size > 0) {
+                // Filter buttons are active
+                consonants.forEach(consonant => {
+                    const filters = consonant.dataset.filters.split(',');
+                    const matchingFilters = Array.from(activeFilters).filter(f => filters.includes(f));
+
+                    if (matchingFilters.length > 0) {
+                        // Consonant matches one or more active filters
+                        consonant.classList.remove('dimmed');
+                        consonant.classList.add('highlighted');
+
+                        if (matchingFilters.length === 1) {
+                            // Single filter - solid color
+                            const color = filterColors[matchingFilters[0]];
+                            consonant.style.background = color;
+                            consonant.style.color = 'white';
+                        } else {
+                            // Multiple filters - gradient
+                            const colors = matchingFilters.map(f => filterColors[f]);
+                            const gradient = `linear-gradient(135deg, ${colors.join(', ')})`;
+                            consonant.style.background = gradient;
+                            consonant.style.color = 'white';
+                        }
+                    } else {
+                        // Consonant doesn't match any active filters - dim it
+                        consonant.classList.add('dimmed');
+                        consonant.classList.remove('highlighted');
+                        consonant.style.background = '#f8f9fa';
+                        consonant.style.color = '#999';
+                    }
+                });
+
+                // Update button colors
+                filterBtns.forEach(btn => {
+                    const filter = btn.dataset.filter;
+                    if (btn.classList.contains('active')) {
+                        btn.style.background = filterColors[filter];
+                        btn.style.borderColor = filterColors[filter];
+                        btn.style.color = 'white';
+                    } else {
+                        btn.style.background = 'white';
+                        btn.style.borderColor = '#ddd';
+                        btn.style.color = '#333';
+                    }
+                });
+            } else {
+                // No filters or consonants selected - show all normally
+                consonants.forEach(consonant => {
+                    consonant.classList.remove('dimmed', 'highlighted');
+                    consonant.style.background = '#f8f9fa';
+                    consonant.style.color = '#333';
+                });
+
+                filterBtns.forEach(btn => {
                     btn.style.background = 'white';
                     btn.style.borderColor = '#ddd';
                     btn.style.color = '#333';
-                }
-            });
+                });
+            }
         }
     </script>
 </body>
